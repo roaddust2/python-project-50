@@ -9,7 +9,7 @@ def generate_output(list):
     return '{\n' + output + '}'
 
 
-def list_diff(original, changed, diff):
+def list_diff(original, changed, diff):  # noqa: C901
     output = []
 
     for key, value in diff.items():
@@ -18,7 +18,7 @@ def list_diff(original, changed, diff):
                 output.append(['-', j + ':', str(original[j])])
         if key == 'new':
             for j in value:
-                output.append(['+', j + ':',  str(changed[j])])
+                output.append(['+', j + ':', str(changed[j])])
         if key == 'updated':
             for j in value:
                 output.append(['-', j + ':', str(original[j])])
@@ -53,7 +53,7 @@ def calculate_diff(original, changed):
         'new': new,
         'updated': updated,
         'unchanged': unchanged,
-        }
+    }
 
     return output
 
