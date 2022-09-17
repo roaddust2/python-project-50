@@ -9,16 +9,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Setup Python 3.9
       uses: actions/setup-python@v1
       with:
         python-version: 3.9
+    - name: Setup Poetry
+      # You may pin to the exact commit or the version.
+      # uses: Gr1N/setup-poetry@09236184f6c1ab47c0dc9c1001c7fe200cf2afb0
+      uses: Gr1N/setup-poetry@v7
+      with:
+        poetry-version: 1.1.13
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pipenv
-        pip install pytest
-        pipenv install --dev
+        poetry add --dev flake8
+        poetry add --dev pytest
     - name: Test with pytest
       run: |
         make lint
