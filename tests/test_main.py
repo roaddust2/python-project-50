@@ -9,7 +9,7 @@ def file1():
         "timeout": 50,
         "proxy": "123.234.53.22",
         "follow": False
-        }
+    }
 
 
 @pytest.fixture
@@ -18,7 +18,7 @@ def file2():
         "timeout": 20,
         "verbose": True,
         "host": "hexlet.io"
-        }
+    }
 
 
 def test(file1, file2):
@@ -26,4 +26,4 @@ def test(file1, file2):
         'removed': {'proxy', 'follow'},
         'new': {'verbose'}, 'updated': {'timeout'},
         'unchanged': {'host'}
-        }
+    }
