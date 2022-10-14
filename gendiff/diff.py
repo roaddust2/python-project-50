@@ -1,35 +1,5 @@
 import gendiff.parser
-
-
-def generate_output(list):
-    output = ''
-
-    for item in list:
-        output += ' '.join(item) + '\n'
-    return '{\n' + output + '}'
-
-
-def list_diff(original, changed, diff):  # noqa: C901
-    output = []
-
-    for key, value in diff.items():
-        if key == 'removed':
-            for j in value:
-                output.append(['-', j + ':', str(original[j])])
-        if key == 'new':
-            for j in value:
-                output.append(['+', j + ':', str(changed[j])])
-        if key == 'updated':
-            for j in value:
-                output.append(['-', j + ':', str(original[j])])
-                output.append(['+', j + ':', str(changed[j])])
-        if key == 'unchanged':
-            for j in value:
-                output.append([' ', j + ':', str(original[j])])
-
-    output.sort(key=lambda json_key: json_key[1])
-
-    return output
+import gendiff.style
 
 
 def calculate_diff(original, changed):
@@ -63,5 +33,4 @@ def generate_diff(first_file, second_file):
     second_file = gendiff.parser.choose_parse_type(second_file)
 
     diff = calculate_diff(first_file, second_file)
-    diff_list = list_diff(first_file, second_file, diff)
-    return generate_output(diff_list)
+    return gendiff.style.list_diff(first_file, second_file, diff)
