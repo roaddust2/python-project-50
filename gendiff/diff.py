@@ -1,7 +1,3 @@
-import gendiff.parser
-import gendiff.style
-
-
 def calculate_diff(original, changed):
     x, y = set(original), set(changed)
 
@@ -26,11 +22,3 @@ def calculate_diff(original, changed):
     }
 
     return output
-
-
-def generate_diff(first_file, second_file):
-    first_file = gendiff.parser.choose_parse_type(first_file)
-    second_file = gendiff.parser.choose_parse_type(second_file)
-
-    diff = calculate_diff(first_file, second_file)
-    return gendiff.style.list_diff(first_file, second_file, diff)

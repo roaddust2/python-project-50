@@ -1,22 +1,20 @@
-import pytest
-from gendiff.diff import generate_diff
+from gendiff.generate_diff import generate_diff
+from tests.output import OUTPUT
 
 
-@pytest.fixture
-def result():
-    return "{" + f'''
-- follow: False
-  host: hexlet.io
-- proxy: 123.234.53.22
-- timeout: 50
-+ timeout: 20
-+ verbose: True
-''' + "}"
-
-
-def test_generate_diff(result):
-    assert generate_diff("file1.json", "file2.json") == result
-    assert generate_diff("file1.yaml", "file2.yaml") == result
-    assert generate_diff("file1.json", "file2.yaml") == result
-    assert generate_diff("file1.json", "file2.yml") == result
-    assert generate_diff("file1.yaml", "file2.yml") == result
+def test_generate_diff():
+    assert generate_diff(
+      "./tests/fixtures/file1.json",
+      "./tests/fixtures/file2.json") == OUTPUT
+    assert generate_diff(
+      "./tests/fixtures/file1.yaml",
+      "./tests/fixtures/file2.yaml") == OUTPUT
+    assert generate_diff(
+      "./tests/fixtures/file1.json",
+      "./tests/fixtures/file2.yaml") == OUTPUT
+    assert generate_diff(
+      "./tests/fixtures/file1.json",
+      "./tests/fixtures/file2.yml") == OUTPUT
+    assert generate_diff(
+      "./tests/fixtures/file1.yaml",
+      "./tests/fixtures/file2.yml") == OUTPUT
