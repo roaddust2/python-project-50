@@ -1,20 +1,4 @@
 import gendiff.parser
-import os.path
-
-
-PARSE_TYPE = {
-    ".json": gendiff.parser.parse_json,
-    ".yaml": gendiff.parser.parse_yaml,
-    ".yml": gendiff.parser.parse_yaml
-}
-
-
-def choose_parse_type(path):
-    name, extension = os.path.splitext(path)
-    if extension in PARSE_TYPE:
-        return PARSE_TYPE[extension](path)
-    else:
-        return
 
 
 def generate_output(list):
@@ -75,8 +59,8 @@ def calculate_diff(original, changed):
 
 
 def generate_diff(first_file, second_file):
-    first_file = choose_parse_type(first_file)
-    second_file = choose_parse_type(second_file)
+    first_file = gendiff.parser.choose_parse_type(first_file)
+    second_file = gendiff.parser.choose_parse_type(second_file)
 
     diff = calculate_diff(first_file, second_file)
     diff_list = list_diff(first_file, second_file, diff)
