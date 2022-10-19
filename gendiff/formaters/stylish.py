@@ -1,14 +1,16 @@
-NEW = "+"
-REMOVED = "-"
-CHANGED = "+", "-"
-UNCHANGED = " "
-SPLITTER = ":"
+MAPPING = {
+    "new": ["+", 1],
+    "removed": ["-", 0],
+    "unchanged": [" ", 0],
+    "changed": ["+", 0, "-", 1]
+}
+
 SPACE = " "
 
 TEMPLATE = "{0}{1} {2}: {3}"
 
 
-def format(diff, depth=2):  # noqa: C901
+def format(diff, depth=2):
 
     output = []
 
@@ -17,32 +19,39 @@ def format(diff, depth=2):  # noqa: C901
         item_state = value.get("state")
         item_value = value.get("value")
 
-        if item_state == "new":
+        if item_state != "node":
             output.append(TEMPLATE.format(
-                SPACE * depth, NEW, item_name, str(item_value[1])))
-        elif item_state == "removed":
-            output.append(TEMPLATE.format(
-                SPACE * depth, REMOVED, item_name, str(item_value[0])))
+                SPACE * depth,
+                MAPPING[item_state][0],
+                item_name,
+                item_value[MAPPING[item_state][1]]))
+
         elif item_state == "changed":
             output.append(TEMPLATE.format(
-                SPACE * depth, CHANGED[0], item_name, str(item_value[0])))
+                SPACE * depth,
+                MAPPING[item_state][0],
+                item_name,
+                item_value[MAPPING[item_state][1]]))
             output.append(TEMPLATE.format(
-                SPACE * depth, CHANGED[1], item_name, str(item_value[1])))
-        elif item_state == "unchanged":
-            output.append(TEMPLATE.format(
-                SPACE * depth, UNCHANGED, item_name, str(item_value[0])))
-        elif item_state == "node":
-            output.append(TEMPLATE.format(
-                SPACE * depth, ' ', item_name, format(
-                    value["value"], depth * 2)))
+                SPACE * depth,
+                MAPPING[item_state][0],
+                item_name,
+                item_value[MAPPING[item_state][3]]))
 
-    output.sort(key=lambda json_key: json_key[1])
+        else:
+            output.append(TEMPLATE.format(
+                SPACE * depth,
+                ' ',
+                item_name,
+                format(
+                    value["value"], depth * 2)))
 
     return generate_output(output)
 
 
 def generate_output(list):
     output = ''
+    list.sort(key=lambda item_key: item_key)
 
     for item in list:
         output += ''.join(item) + '\n'
