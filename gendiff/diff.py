@@ -1,24 +1,48 @@
+# Inner view example
+#
+# {
+# "name": {
+#   "state": node/removed/new/updated/unchanged
+#   "value": [value]
+#   },
+# }
+
 def calculate_diff(original, changed):
-    x, y = set(original), set(changed)
+    diff = {}
 
-    new = y.difference(x)
-    removed = x.difference(y)
-    updated, unchanged = set(), set()
+    original_keys = set(original.keys())
+    changed_keys = set(changed.keys())
 
-    for item in original:
-        memory = []
-        if item in changed and original[item] != changed[item]:
-            memory.append(item)
-            updated.update(memory)
-        if item in changed and original[item] == changed[item]:
-            memory.append(item)
-            unchanged.update(memory)
+    new_keys = changed_keys.difference(original_keys)
+    for key in new_keys:
+        diff[key] = {
+            "state": "new",
+            "value": ['', changed[key]]
+        }
 
-    output = {
-        'removed': removed,
-        'new': new,
-        'updated': updated,
-        'unchanged': unchanged,
-    }
+    removed_keys = original_keys.difference(changed_keys)
+    for key in removed_keys:
+        diff[key] = {
+            "state": "removed",
+            "value": [original[key], '']
+        }
 
-    return output
+    for key in original_keys.intersection(changed_keys):
+        if isinstance(original[key], dict) and isinstance(changed[key], dict):
+            diff[key] = {
+                "state": "node",
+                "value": calculate_diff(original[key], changed[key])
+            }
+
+        elif original[key] != changed[key]:
+            diff[key] = {
+                "state": "changed",
+                "value": [changed[key], original[key]]
+            }
+        else:
+            diff[key] = {
+                "state": "unchanged",
+                "value": [changed[key], original[key]]
+            }
+
+    return diff
