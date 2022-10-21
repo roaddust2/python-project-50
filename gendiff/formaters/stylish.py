@@ -3,8 +3,8 @@ MAPPING = {
     "removed": "-",
     "unchanged": " ",
     "changed": {
-        "style_old": "+", "value_old": 0,
-        "style_new": "-", "value_new": 1}
+        "style_old": "-", "value_old": 0,
+        "style_new": "+", "value_new": 1}
 }
 
 SPACE = " "
