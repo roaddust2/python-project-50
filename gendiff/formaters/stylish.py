@@ -1,8 +1,10 @@
 MAPPING = {
-    "new": ["+", 1],
-    "removed": ["-", 0],
-    "unchanged": [" ", 0],
-    "changed": ["+", 0, "-", 1]
+    "new": "+",
+    "removed": "-",
+    "unchanged": " ",
+    "changed": {
+        "style_old": "+", "value_old": 0,
+        "style_new": "-", "value_new": 1}
 }
 
 SPACE = " "
@@ -19,24 +21,24 @@ def format(diff, depth=2):
         item_state = value.get("state")
         item_value = value.get("value")
 
-        if item_state != "node":
+        if item_state == "changed":
             output.append(TEMPLATE.format(
                 SPACE * depth,
-                MAPPING[item_state][0],
+                MAPPING[item_state]["style_old"],
                 item_name,
-                item_value[MAPPING[item_state][1]]))
+                item_value[MAPPING[item_state]["value_old"]]))
+            output.append(TEMPLATE.format(
+                SPACE * depth,
+                MAPPING[item_state]["style_new"],
+                item_name,
+                item_value[MAPPING[item_state]["value_new"]]))
 
-        elif item_state == "changed":
+        elif item_state != "node":
             output.append(TEMPLATE.format(
                 SPACE * depth,
-                MAPPING[item_state][0],
+                MAPPING[item_state],
                 item_name,
-                item_value[MAPPING[item_state][1]]))
-            output.append(TEMPLATE.format(
-                SPACE * depth,
-                MAPPING[item_state][0],
-                item_name,
-                item_value[MAPPING[item_state][3]]))
+                item_value[0]))
 
         else:
             output.append(TEMPLATE.format(

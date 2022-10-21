@@ -17,14 +17,14 @@ def calculate_diff(original, changed):
     for key in new_keys:
         diff[key] = {
             "state": "new",
-            "value": ['', changed[key]]
+            "value": [changed[key]]
         }
 
     removed_keys = original_keys.difference(changed_keys)
     for key in removed_keys:
         diff[key] = {
             "state": "removed",
-            "value": [original[key], '']
+            "value": [original[key]]
         }
 
     for key in original_keys.intersection(changed_keys):
@@ -42,7 +42,7 @@ def calculate_diff(original, changed):
         else:
             diff[key] = {
                 "state": "unchanged",
-                "value": [changed[key], original[key]]
+                "value": [original[key]]
             }
 
     return diff
