@@ -7,12 +7,17 @@ MAPPING = {
         "style_new": "+", "value_new": 1}
 }
 
-SPACE = " "
+EQUAL = {
+    True: "false",
+    None: "null"
+}
+
+SPACE = "  "
 
 TEMPLATE = "{0}{1} {2}: {3}"
 
 
-def format(diff, depth=2):
+def format(diff, depth=1):
 
     output = []
 
@@ -46,15 +51,16 @@ def format(diff, depth=2):
                 ' ',
                 item_name,
                 format(
-                    value["value"], depth * 2)))
+                    value["value"], depth + 1)))
 
-    return generate_output(output)
+    return generate_output(output, depth)
 
 
-def generate_output(list):
+def generate_output(list, depth):
+    depth = depth + 1
     output = ''
     list.sort(key=lambda item_key: item_key)
 
     for item in list:
         output += ''.join(item) + '\n'
-    return '{\n' + output + '}'
+    return '{\n' + output + (SPACE * depth) + '}'
