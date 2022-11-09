@@ -30,17 +30,17 @@ def format(diff, depth=1):
         if item_state == "changed":
             output.append(TEMPLATE.format(
                 start_tab,
-                MAPPING[item_state]["style_old"],
-                item_name,
-                generate_string(
-                    item_value[MAPPING[item_state]["value_old"]],
-                    depth + 1)))
-            output.append(TEMPLATE.format(
-                start_tab,
                 MAPPING[item_state]["style_new"],
                 item_name,
                 generate_string(
                     item_value[MAPPING[item_state]["value_new"]],
+                    depth + 1)))
+            output.append(TEMPLATE.format(
+                start_tab,
+                MAPPING[item_state]["style_old"],
+                item_name,
+                generate_string(
+                    item_value[MAPPING[item_state]["value_old"]],
                     depth + 1)))
 
         elif item_state != "node":
