@@ -18,8 +18,8 @@ TEMPLATE = "{0}{1} {2}: {3}"
 def format(diff, depth=1):
 
     output = ['{']
-    start_tab = calc_tabs(depth).get('start_tab')
-    end_tab = calc_tabs(depth).get('end_tab')
+    start_tab = calculate_tabs(depth).get('start_tab')
+    end_tab = calculate_tabs(depth).get('end_tab')
     new_diff = dict(sorted(diff.items()))
 
     for key, value in new_diff.items():
@@ -62,7 +62,7 @@ def format(diff, depth=1):
     return '\n'.join(output)
 
 
-def calc_tabs(depth):
+def calculate_tabs(depth):
     tabs = {
         'start_tab': SPACE * (TAB_NUM * depth - 2),
         'end_tab': SPACE * (TAB_NUM * (depth - 1))
@@ -72,8 +72,8 @@ def calc_tabs(depth):
 
 def generate_string(node, depth):
     output = []
-    start_tab = calc_tabs(depth).get('start_tab')
-    end_tab = calc_tabs(depth).get('end_tab')
+    start_tab = calculate_tabs(depth).get('start_tab')
+    end_tab = calculate_tabs(depth).get('end_tab')
 
     if isinstance(node, dict):
         output.append('{')

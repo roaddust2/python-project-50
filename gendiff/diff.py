@@ -1,7 +1,7 @@
 # Inner view example
 #
 # {
-# "name": {
+#   "name": {
 #   "state": node/removed/new/updated/unchanged
 #   "value": [value]
 #   },

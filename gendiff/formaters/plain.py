@@ -24,11 +24,11 @@ def format(diff, name=[]):
             output.append(MAPPING[item_state].format(
                 '.'.join(name),
                 generate_string(item_value[0])))
-        
+
         elif item_state == "removed":
             output.append(MAPPING[item_state].format(
                 '.'.join(name)))
-        
+
         elif item_state == "changed":
             output.append(MAPPING[item_state].format(
                 '.'.join(name),
@@ -46,10 +46,8 @@ def format(diff, name=[]):
 
 def generate_string(node):
     if isinstance(node, str):
-        result = f"'{node}'"
+        return f"'{node}'"
     elif isinstance(node, dict):
-        result = '[complex value]'
+        return '[complex value]'
     else:
-        result = dumps(node)
-
-    return result
+        return dumps(node)
