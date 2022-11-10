@@ -41,7 +41,7 @@ STYLISH = '''{
         }
         fee: 100500
     }
-}'''
+}''' # noqa
 
 PLAIN = '''Property 'common.follow' was added with value: false
 Property 'common.setting2' was removed
