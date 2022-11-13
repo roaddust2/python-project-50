@@ -60,7 +60,7 @@ JSON = '''{
     "state": "node",
     "value": {
       "follow": {
-        "state": "new",
+        "state": "added",
         "value": [
           false
         ]
@@ -85,13 +85,13 @@ JSON = '''{
         ]
       },
       "setting4": {
-        "state": "new",
+        "state": "added",
         "value": [
           "blah blah"
         ]
       },
       "setting5": {
-        "state": "new",
+        "state": "added",
         "value": [
           {
             "key5": "value5"
@@ -120,7 +120,7 @@ JSON = '''{
             ]
           },
           "ops": {
-            "state": "new",
+            "state": "added",
             "value": [
               "vops"
             ]
@@ -168,7 +168,7 @@ JSON = '''{
     ]
   },
   "group3": {
-    "state": "new",
+    "state": "added",
     "value": [
       {
         "deep": {

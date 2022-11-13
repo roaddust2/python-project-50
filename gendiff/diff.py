@@ -1,48 +1,53 @@
-# Inner view example
-#
-# {
-#   "name": {
-#   "state": node/removed/new/updated/unchanged
-#   "value": [value]
-#   },
-# }
+def calculate_diff(old_data: dict, new_data: dict):
+    """Forms inner view (dictionary) of difference between data.
 
-def calculate_diff(original, changed):
+    Keyword arguments:
+    old_data - dictionary, which was parsed from a first file
+    new_data - dictionary, which was parsed from a second file
+
+    Inner view example:
+    {
+        "name": {
+            "state": node/removed/added/updated/unchanged,
+            "value": [value]
+            },
+    }
+    """
     diff = {}
 
-    original_keys = set(original.keys())
-    changed_keys = set(changed.keys())
+    original_keys = set(old_data.keys())
+    changed_keys = set(new_data.keys())
 
     new_keys = changed_keys.difference(original_keys)
     for key in new_keys:
         diff[key] = {
-            "state": "new",
-            "value": [changed[key]]
+            "state": "added",
+            "value": [new_data[key]]
         }
 
     removed_keys = original_keys.difference(changed_keys)
     for key in removed_keys:
         diff[key] = {
             "state": "removed",
-            "value": [original[key]]
+            "value": [old_data[key]]
         }
 
     for key in original_keys.intersection(changed_keys):
-        if isinstance(original[key], dict) and isinstance(changed[key], dict):
+        if isinstance(old_data[key], dict) and isinstance(new_data[key], dict):
             diff[key] = {
                 "state": "node",
-                "value": calculate_diff(original[key], changed[key])
+                "value": calculate_diff(old_data[key], new_data[key])
             }
 
-        elif original[key] != changed[key]:
+        elif old_data[key] != new_data[key]:
             diff[key] = {
                 "state": "changed",
-                "value": [changed[key], original[key]]
+                "value": [new_data[key], old_data[key]]
             }
         else:
             diff[key] = {
                 "state": "unchanged",
-                "value": [original[key]]
+                "value": [old_data[key]]
             }
 
     return diff

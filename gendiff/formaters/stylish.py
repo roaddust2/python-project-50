@@ -2,7 +2,7 @@ from json import dumps
 
 
 MAPPING = {
-    "new": "+",
+    "added": "+",
     "removed": "-",
     "unchanged": " ",
     "changed": {

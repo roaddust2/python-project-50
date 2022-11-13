@@ -2,7 +2,7 @@ from json import dumps
 
 
 MAPPING = {
-    "new": "Property '{0}' was added with value: {1}",
+    "added": "Property '{0}' was added with value: {1}",
     "removed": "Property '{0}' was removed",
     "changed": "Property '{0}' was updated. From {1} to {2}"
 }
@@ -20,7 +20,7 @@ def format(diff, name=[]):
 
         name.append(item_name)
 
-        if item_state == "new":
+        if item_state == "added":
             output.append(MAPPING[item_state].format(
                 '.'.join(name),
                 generate_string(item_value[0])))
