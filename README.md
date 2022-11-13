@@ -7,6 +7,9 @@
 ### About The Project
 This is small console util written on Python which helps to calculate differnce between two files (supports .json, .yaml, .yml formats).
 
+**Used packages:**
+* [pytest-lazy-fixture](https://github.com/tvorog/pytest-lazy-fixture)
+
 ### How it works
 [![asciicast](https://asciinema.org/a/PUzN4kezHeuIy4ykBxWlo2Lml.svg)](https://asciinema.org/a/PUzN4kezHeuIy4ykBxWlo2Lml)
 
