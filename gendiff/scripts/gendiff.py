@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from gendiff.scripts.cli import argpaser
+from gendiff.cli import argpaser
 from gendiff.generate_diff import generate_diff
 
 
